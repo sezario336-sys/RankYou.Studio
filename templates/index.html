@@ -158,7 +158,67 @@
                 <div style="font-size: 28px; margin-bottom: 8px;">💎</div>
                 <h4>Sponsor Ecosystem</h4>
                 <p>Unlock advanced bulk data export routines and cloud developer kits.</p>
-                <a href="https://auctionr.org" target="_blank" class="ad-btn">Access Sponsor 🚀</a>
+                <a href="https://auctionr.org" target="_blank" class="ad-btn">Access Sponsor 🚀</a><!-- Tool 6: Hashtag Generator for Creators -->
+            <div class="tool-card" data-category="text" data-name="hashtag generator social media tags">
+                <div class="tool-header">
+                    <div class="tool-icon">#️⃣</div>
+                    <div class="tool-title">
+                        <h3>Social Media Hashtag Generator</h3>
+                        <span>Social & Content</span>
+                    </div>
+                </div>
+                <input type="text" id="tagKeyword" placeholder="Enter keyword (e.g. fitness, tech)...">
+                <div class="tool-actions">
+                    <button class="btn" onclick="generateTags()">Generate Tags</button>
+                </div>
+                <div class="result-box" id="tagResult">Generated tags will appear here...</div>
+            </div>
+
+            <!-- Tool 7: WhatsApp Direct Link Generator -->
+            <div class="tool-card" data-category="text" data-name="whatsapp direct link chat api">
+                <div class="tool-header">
+                    <div class="tool-icon">💬</div>
+                    <div class="tool-title">
+                        <h3>WhatsApp Direct Link Generator</h3>
+                        <span>Social & Content</span>
+                    </div>
+                </div>
+                <input type="text" id="waPhone" placeholder="Phone with country code (e.g. 212...)" style="margin-bottom: 8px;">
+                <textarea id="waMsg" placeholder="Default message..." rows="1"></textarea>
+                <div class="tool-actions">
+                    <button class="btn btn-accent" onclick="generateWhatsAppLink()">Create Link</button>
+                </div>
+                <div class="result-box" id="waResult">https://wa.me/...</div>
+            </div>
+
+            <!-- Tool 8: Color Converter (HEX to RGB) -->
+            <div class="tool-card" data-category="dev" data-name="color converter hex rgb developer">
+                <div class="tool-header">
+                    <div class="tool-icon">🎨</div>
+                    <div class="tool-title">
+                        <h3>HEX to RGB Color Converter</h3>
+                        <span>Developer & Code</span>
+                    </div>
+                </div>
+                <input type="text" id="colorInput" placeholder="Enter HEX (e.g. #6366f1)" oninput="convertColor()">
+                <div class="result-box" id="colorResult">RGB: rgb(99, 102, 241)</div>
+            </div>
+
+            <!-- Tool 9: JSON Formatter & Validator -->
+            <div class="tool-card" data-category="dev" data-name="json formatter validator beautifier">
+                <div class="tool-header">
+                    <div class="tool-icon">📋</div>
+                    <div class="tool-title">
+                        <h3>JSON Formatter & Beautifier</h3>
+                        <span>Developer & Code</span>
+                    </div>
+                </div>
+                <textarea id="jsonInput" placeholder="Paste raw JSON here..." rows="2"></textarea>
+                <div class="tool-actions">
+                    <button class="btn" onclick="formatJSON()">Format & Validate</button>
+                </div>
+                <div class="result-box" id="jsonResult">Beautified JSON output...</div>
+    </div>
             </div>
 
             <!-- Tool 4: Word & Character Stats Counter -->
@@ -269,6 +329,51 @@
             let val = document.getElementById('slugInput').value;
             let slug = val.toLowerCase().trim().replace(/[^\w\s-]/g, '').replace(/[\s_-]+/g, '-').replace(/^-+|-+$/g, '');
             document.getElementById('slugResult').innerText = slug || 'clean-url-slug-output';
+        }// Tool 6 Logic: Hashtag Generator
+        function generateTags() {
+            let kw = document.getElementById('tagKeyword').value.trim() || 'trending';
+            let cleanKw = kw.replace(/\s+/g, '');
+            let tags = `#${cleanKw} #${cleanKw}Pro #Digital${cleanKw} #${cleanKw}Community #BestOf${cleanKw} #Daily${cleanKw} #${cleanKw}Tips #Top${cleanKw}`;
+            document.getElementById('tagResult').innerText = tags;
+        }
+
+        // Tool 7 Logic: WhatsApp Link
+        function generateWhatsAppLink() {
+            let phone = document.getElementById('waPhone').value.trim();
+            let msg = encodeURIComponent(document.getElementById('waMsg').value.trim());
+            if (!phone) {
+                document.getElementById('waResult').innerText = 'Please enter a valid phone number.';
+                return;
+            }
+            let link = `https://wa.me/${phone}?text=${msg}`;
+            document.getElementById('waResult').innerText = link;
+        }
+
+        // Tool 8 Logic: Color Converter
+        function convertColor() {
+            let hex = document.getElementById('colorInput').value.trim();
+            let shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
+            hex = hex.replace(shorthandRegex, (m, r, g, b) => r + r + g + g + b + b);
+            let result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+            if (result) {
+                let r = parseInt(result[1], 16);
+                let g = parseInt(result[2], 16);
+                let b = parseInt(result[3], 16);
+                document.getElementById('colorResult').innerText = `RGB: rgb(${r}, ${g}, ${b})`;
+            } else {
+                document.getElementById('colorResult').innerText = 'Invalid HEX color code.';
+            }
+        }
+
+        // Tool 9 Logic: JSON Formatter
+        function formatJSON() {
+            let val = document.getElementById('jsonInput').value;
+            try {
+                let parsed = JSON.parse(val);
+                document.getElementById('jsonResult').innerText = JSON.stringify(parsed, null, 4);
+            } catch (e) {
+                document.getElementById('jsonResult').innerText = 'Error: Invalid JSON syntax.';
+            }
         }
     </script>
 </body>
